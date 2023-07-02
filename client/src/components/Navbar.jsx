@@ -21,7 +21,7 @@ const Navbar = () => {
           </li>
           <li className='block'>
             <Link
-              to='/#'
+              to='/signup'
               className='p-2 px-4 bg-purple-700 border border-purple-900 rounded-md text-white'
             >
               Signup
