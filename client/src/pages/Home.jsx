@@ -1,7 +1,7 @@
 // import { useQuery } from 'react-query';
 // import axios from 'axios';
 import Navbar from '../components/Navbar';
-import heroImg from '../assets/hero.gif';
+import heroImg from '../assets/hero.svg';
 import { Button } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 
