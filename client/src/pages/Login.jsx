@@ -10,7 +10,14 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => console.log(data);
+
+  const handleGoogleLogin = () => {
+    // Make a GET request to your backend Google login route
+    window.location.href = 'http://localhost:5000/api/v1/auth/google';
+  };
+
   return (
     <div className='flex items-center h-screen'>
       <div className='basis-0 sm:basis-2/4 md:basis-3/5 h-full bg-purple-700 flex justify-center items-center'>
@@ -29,9 +36,14 @@ const Login = () => {
               name='email'
               placeholder='ram@gmail.com'
               type='email'
-              className='mt-2'
+              className='my-2'
               {...register('email', { required: true })}
             />
+            {errors.email?.type === 'required' && (
+              <p role='alert' className='text-xs text-red-500'>
+                Email is required
+              </p>
+            )}
           </div>
           <div className='my-4'>
             <Label htmlFor='password' value='Your password' />
@@ -40,11 +52,15 @@ const Login = () => {
               id='password'
               name='password'
               placeholder='******'
-              required
               type='password'
-              className='mt-2'
+              className='my-2'
               {...register('password', { required: true })}
             />
+            {errors.password?.type === 'required' && (
+              <p role='alert' className='text-xs text-red-500'>
+                Password is required
+              </p>
+            )}
           </div>
           <Button
             type='submit'
@@ -53,7 +69,11 @@ const Login = () => {
           >
             Login
           </Button>
-          <button className='w-full flex  items-center justify-center gap-2 my-4 p-2 text-center rounded-md border border-gray-300 text-zinc-600 font-semibold'>
+          <button
+            type='button'
+            onClick={handleGoogleLogin}
+            className='w-full flex  items-center justify-center gap-2 my-4 p-2 text-center rounded-md border border-gray-300 text-zinc-600 font-semibold'
+          >
             <img src={google} className='w-7 h-7' alt='' /> Continue with Google
           </button>
 

@@ -139,7 +139,7 @@ resumeSchema.pre('save', function (next) {
 
 const userSchema = new mongoose.Schema(
   {
-    username: {
+    displayName: {
       type: String,
       required: true,
     },
@@ -151,8 +151,15 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    profilePic: {
+      type: String,
+      required: true,
+    },
     resume: {
       type: resumeSchema,
+    },
+    googleId: {
+      type: String,
     },
   },
   { timestamps: true }

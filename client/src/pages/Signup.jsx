@@ -10,7 +10,9 @@ const Signup = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => console.log(data);
+
   return (
     <div className='flex items-center h-screen'>
       <div className='basis-0 sm:basis-2/4 md:basis-3/5 h-full bg-purple-700 flex justify-center items-center'>
@@ -30,10 +32,15 @@ const Signup = () => {
               id='name'
               name='name'
               placeholder='Ram Das'
-              type='name'
+              type='text'
               className='mt-2'
               {...register('name', { required: true })}
             />
+            {errors.name?.type === 'required' && (
+              <p role='alert' className='text-xs text-red-500'>
+                Name is required
+              </p>
+            )}
           </div>
           <div className='my-4'>
             <Label htmlFor='email' value='Your email' />
@@ -46,6 +53,11 @@ const Signup = () => {
               className='mt-2'
               {...register('email', { required: true })}
             />
+            {errors.email?.type === 'required' && (
+              <p role='alert' className='text-xs text-red-500'>
+                Email is required
+              </p>
+            )}
           </div>
           <div className='my-4'>
             <Label htmlFor='password' value='Your password' />
@@ -59,6 +71,11 @@ const Signup = () => {
               className='mt-2'
               {...register('password', { required: true })}
             />
+            {errors.password?.type === 'required' && (
+              <p role='alert' className='text-xs text-red-500'>
+                Password is required
+              </p>
+            )}
           </div>
           <Button
             type='submit'
