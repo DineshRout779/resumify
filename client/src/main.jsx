@@ -9,6 +9,11 @@ import Signup from './pages/Signup.jsx';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Flowbite } from 'flowbite-react';
 import { customTheme } from './theme.js';
+import { Toaster } from 'react-hot-toast';
+import Dashboard from './pages/Dashboard.jsx';
+import Success from './pages/Success.jsx';
+import Error from './pages/Error.jsx';
+import AuthContextProvider from './context/AuthContext.jsx';
 
 // Create a client
 const queryClient = new QueryClient();
@@ -23,6 +28,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
     ],
+    errorElement: <Error />,
   },
   {
     path: '/login',
@@ -32,14 +38,25 @@ const router = createBrowserRouter([
     path: '/signup',
     element: <Signup />,
   },
+  {
+    path: '/dashboard',
+    element: <Dashboard />,
+  },
+  {
+    path: '/success',
+    element: <Success />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <Flowbite theme={{ theme: customTheme }}>
-        <RouterProvider router={router} />
-      </Flowbite>
-    </QueryClientProvider>
+    <AuthContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <Flowbite theme={{ theme: customTheme }}>
+          <Toaster position='bottom-center' reverseOrder={false} />
+          <RouterProvider router={router} />
+        </Flowbite>
+      </QueryClientProvider>
+    </AuthContextProvider>
   </React.StrictMode>
 );
