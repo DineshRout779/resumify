@@ -51,10 +51,9 @@ passport.use(
 passport.use(
   new GoogleStrategy(
     {
-      clientID:
-        '761016329421-jpt2vgkdqtl35qrkeu8b7mv89oseoeep.apps.googleusercontent.com',
-      clientSecret: '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',
-      callbackURL: 'http://localhost:5000/api/v1/auth/google/callback',
+      clientID: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      callbackURL: CALLBACK_URL,
     },
     async (accessToken, refreshToken, profile, done) => {
       // Use the Google profile data to find or create a user in your application's database
