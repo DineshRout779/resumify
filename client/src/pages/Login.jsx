@@ -3,6 +3,7 @@ import google from '../assets/google.svg';
 import { useForm } from 'react-hook-form';
 import { Button, Label, TextInput } from 'flowbite-react';
 import { Link } from 'react-router-dom';
+import { API } from '../utils/backend';
 
 const Login = () => {
   const {
@@ -15,7 +16,7 @@ const Login = () => {
 
   const handleGoogleLogin = () => {
     // Make a GET request to your backend Google login route
-    window.location.href = 'http://localhost:5000/api/v1/auth/google';
+    window.location.href = `${API}/auth/google`;
   };
 
   return (
