@@ -1,10 +1,11 @@
 const passport = require('passport');
 const { signup, login } = require('../controllers/auth');
 const generateToken = require('../helpers/generateToken');
+const verifyToken = require('../helpers/verifyToken');
 // const generateToken = require('../helpers/generateToken');
 // const User = require('../models/User');
 
-const CLIENT_URL = 'http://localhost:5173/success';
+const CLIENT_URL = 'https://resumifyapp.vercel.app//success';
 
 const router = require('express').Router();
 
@@ -41,5 +42,28 @@ router.get(
     res.redirect(`${CLIENT_URL}?token=${token}`);
   }
 );
+
+router.get('/isauthenticated', verifyToken, async (req, res) => {
+  try {
+    if (req.user) {
+      return res.status(200).json({
+        success: true,
+        user: req.user,
+        message: 'User fetched successfully',
+      });
+    } else {
+      return res.status(401).json({
+        success: false,
+        message: `You're not authorized`,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(401).json({
+      success: false,
+      message: `You're not authorized`,
+    });
+  }
+});
 
 module.exports = router;
