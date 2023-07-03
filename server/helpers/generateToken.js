@@ -3,8 +3,7 @@ const jwt = require('jsonwebtoken');
 // Generate JWT token
 function generateToken(user) {
   const payload = {
-    id: user._id,
-    username: user.username,
+    _id: user._id,
   };
 
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' });
