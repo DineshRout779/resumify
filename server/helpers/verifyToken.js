@@ -16,6 +16,8 @@ const verifyToken = (req, res, next) => {
       });
     }
 
+    // console.log('token: ', token);
+
     jwt.verify(token, process.env.JWT_SECRET, async (err, user) => {
       if (err) {
         return res.status(403).json({

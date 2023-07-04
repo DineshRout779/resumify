@@ -5,8 +5,6 @@ const verifyToken = require('../helpers/verifyToken');
 // const generateToken = require('../helpers/generateToken');
 // const User = require('../models/User');
 
-const CLIENT_URL = process.env.CLIENT_URL;
-
 const router = require('express').Router();
 
 router.post('/login', login);
@@ -25,11 +23,6 @@ router.get('/login/failed', (req, res) => {
   });
 });
 
-router.get('/logout', (req, res) => {
-  req.logout();
-  res.redirect(CLIENT_URL);
-});
-
 router.get(
   '/google/callback',
   passport.authenticate('google', {
@@ -39,7 +32,7 @@ router.get(
   (req, res) => {
     // Redirect the user to the client URL
     const token = generateToken(req.user);
-    res.redirect(`${CLIENT_URL}?token=${token}`);
+    res.redirect(`${process.env.CLIENT_URL}?token=${token}`);
   }
 );
 
