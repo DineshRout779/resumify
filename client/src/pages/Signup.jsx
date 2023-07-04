@@ -3,6 +3,8 @@ import google from '../assets/google.svg';
 import { useForm } from 'react-hook-form';
 import { Button, Label, TextInput } from 'flowbite-react';
 import { Link } from 'react-router-dom';
+import { signupService } from '../services/lib/auth';
+import toast from 'react-hot-toast';
 
 const Signup = () => {
   const {
@@ -11,7 +13,19 @@ const Signup = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      const res = await signupService(data);
+
+      if (res.status === 201) {
+        localStorage.setItem('token', res.data.token);
+        window.location.href = '/dashboard';
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(error.response);
+    }
+  };
 
   return (
     <div className='flex items-center h-screen'>
@@ -26,17 +40,17 @@ const Signup = () => {
 
         <form onSubmit={handleSubmit(onSubmit)} className='block w-full'>
           <div className='my-4'>
-            <Label htmlFor='name' value='Your name' />
+            <Label htmlFor='displayName' value='Your name' />
 
             <TextInput
-              id='name'
-              name='name'
+              id='displayName'
+              name='displayName'
               placeholder='Ram Das'
               type='text'
-              className='mt-2'
-              {...register('name', { required: true })}
+              className='my-2'
+              {...register('displayName', { required: true })}
             />
-            {errors.name?.type === 'required' && (
+            {errors.displayName?.type === 'required' && (
               <p role='alert' className='text-xs text-red-500'>
                 Name is required
               </p>
@@ -50,7 +64,7 @@ const Signup = () => {
               name='email'
               placeholder='ram@gmail.com'
               type='email'
-              className='mt-2'
+              className='my-2'
               {...register('email', { required: true })}
             />
             {errors.email?.type === 'required' && (
@@ -66,9 +80,8 @@ const Signup = () => {
               id='password'
               name='password'
               placeholder='******'
-              required
               type='password'
-              className='mt-2'
+              className='my-2'
               {...register('password', { required: true })}
             />
             {errors.password?.type === 'required' && (
@@ -84,7 +97,10 @@ const Signup = () => {
           >
             Sign up
           </Button>
-          <button className='w-full flex  items-center justify-center gap-2 my-4 p-2 text-center rounded-md border border-gray-300 text-zinc-600 font-semibold'>
+          <button
+            type='button'
+            className='w-full flex  items-center justify-center gap-2 my-4 p-2 text-center rounded-md border border-gray-300 text-zinc-600 font-semibold'
+          >
             <img src={google} className='w-7 h-7' alt='' /> Continue with Google
           </button>
 
