@@ -1,17 +1,21 @@
 import { Link } from 'react-router-dom';
+import storyImg from '../assets/stories.svg';
 
 const Stories = () => {
   return (
-    <div className='container w-[95%] my-16 max-w-[1200px] mx-auto p-4 flex justify-between items-center gap-12'>
-      <div className='basis-1/2'>
-        <h1 className='text-4xl mb-6 font-semibold'>
+    <div className='container w-[95%] my-24 max-w-[1200px] mx-auto p-4 block md:flex flex-row-reverse justify-between items-center gap-12'>
+      <div className='basis-1/2 my-8 md:m-0'>
+        <img src={storyImg} alt='' />
+      </div>
+      <div className='basis-1/2 text-center md:text-left'>
+        <h1 className='text-2xl md:text-4xl mb-6 font-semibold'>
           Create Professional <br /> Stories In Minutes <br /> With Our App
         </h1>
-        <p className='w-[80%]'>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
-          fugiat vitae beatae quo id tempora necessitatibus sed! Neque
-          cupiditate rerum, praesentium saepe velit aperiam eaque nam temporibus
-          laboriosam soluta ipsa!
+        <p className='w-full text-sm md:text-base md:w-[80%]'>
+          Craft professional resumes effortlessly with our user-friendly app.
+          Showcase your skills effectively, capturing employers&apos; attention.
+          Build polished resumes in minutes using our intuitive interface and
+          powerful features. Unlock career opportunities hassle-free.
         </p>
 
         <Link
@@ -20,13 +24,6 @@ const Stories = () => {
         >
           Create My Resume
         </Link>
-      </div>
-      <div className='basis-1/2'>
-        <img
-          src='https://images.pexels.com/photos/7752846/pexels-photo-7752846.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-          alt=''
-          className='w-[80%] ml-auto rounded-md'
-        />
       </div>
     </div>
   );
