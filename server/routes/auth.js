@@ -5,7 +5,7 @@ const verifyToken = require('../helpers/verifyToken');
 // const generateToken = require('../helpers/generateToken');
 // const User = require('../models/User');
 
-const CLIENT_URL = 'https://resumifyapp.vercel.app//success';
+const CLIENT_URL = process.env.CLIENT_URL;
 
 const router = require('express').Router();
 
