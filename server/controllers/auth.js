@@ -4,14 +4,14 @@ const User = require('../models/User');
 
 exports.signup = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { displayName, email, password } = req.body;
 
     // Check if the email already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({
         status: false,
-        message: 'Username already exists',
+        message: 'Email already exists',
       });
     }
 
@@ -19,7 +19,7 @@ exports.signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user
-    const newUser = new User({ username, email, password: hashedPassword });
+    const newUser = new User({ displayName, email, password: hashedPassword });
     await newUser.save();
 
     // Generate and send JWT token
@@ -66,7 +66,7 @@ exports.login = async (req, res) => {
     // Generate and send JWT token
     const token = generateToken(user);
 
-    return res.status(201).json({
+    return res.status(200).json({
       token,
       status: true,
       message: 'Successfully logged in!',
