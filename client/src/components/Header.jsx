@@ -1,18 +1,33 @@
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { logout } from '../reducers/authReducers';
 import Logo from './Logo';
 
 const Header = () => {
   const {
-    state: { user },
+    state: { user, loading },
+    dispatch,
   } = useAuth();
+
+  const handleLogout = async () => {
+    dispatch(logout());
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+  };
+
   return (
     <Navbar fluid className='container w-[95%] max-w-[1200px] mx-auto p-0 py-8'>
       <Logo />
 
       <div className='flex gap-2 md:order-2'>
-        {user ? (
+        {loading ? (
+          <img
+            src='https://miro.medium.com/v2/resize:fit:1400/1*CsJ05WEGfunYMLGfsT2sXA.gif'
+            alt=''
+            className='w-8 h-8'
+          />
+        ) : user ? (
           <Dropdown
             inline
             arrowIcon={false}
@@ -29,21 +44,20 @@ const Header = () => {
             </Dropdown.Header>
             <Dropdown.Item>Dashboard</Dropdown.Item>
             <Dropdown.Item>Settings</Dropdown.Item>
-            <Dropdown.Item>Earnings</Dropdown.Item>
             <Dropdown.Divider />
-            <Dropdown.Item>Sign out</Dropdown.Item>
+            <Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
           </Dropdown>
         ) : (
-          <div>
+          <div className='hidden md:flex gap-2'>
             <Link
               to='/login'
-              className='hidden md:visible p-2 px-4 bg-white border border-purple-700 hover:border-purple-900 hover:bg-gray-100 text-purple-700 rounded-md '
+              className=' p-2 px-4 bg-white border border-purple-700 hover:border-purple-900 hover:bg-gray-100 text-purple-700 rounded-md '
             >
               Login
             </Link>
             <Link
               to='/signup'
-              className='hidden md:visible p-2 px-4 bg-purple-700 border border-purple-900 rounded-md text-white'
+              className=' p-2 px-4 bg-purple-700 border border-purple-900 rounded-md text-white'
             >
               Signup
             </Link>
