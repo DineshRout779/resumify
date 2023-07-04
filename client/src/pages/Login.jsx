@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import { Button, Label, TextInput } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 import { API } from '../utils/backend';
+import { loginService } from '../services/lib/auth';
+import toast from 'react-hot-toast';
 
 const Login = () => {
   const {
@@ -12,7 +14,19 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      const res = await loginService(data);
+
+      if (res.status === 200) {
+        localStorage.setItem('token', res.data.token);
+        window.location.href = '/dashboard';
+      }
+    } catch (error) {
+      console.log(error.response);
+      toast.error(error.response.data.message);
+    }
+  };
 
   const handleGoogleLogin = () => {
     // Make a GET request to your backend Google login route
