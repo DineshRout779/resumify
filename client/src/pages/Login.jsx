@@ -2,17 +2,23 @@ import loginImg from '../assets/login.svg';
 import google from '../assets/google.svg';
 import { useForm } from 'react-hook-form';
 import { Button, Label, TextInput } from 'flowbite-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { API } from '../utils/backend';
 import { loginService } from '../services/lib/auth';
 import toast from 'react-hot-toast';
+import { useAuth } from '../hooks/useAuth';
+import { useEffect } from 'react';
 
 const Login = () => {
+  const {
+    state: { user },
+  } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     try {
@@ -32,6 +38,12 @@ const Login = () => {
     // Make a GET request to your backend Google login route
     window.location.href = `${API}/auth/google`;
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard');
+    }
+  }, [navigate, user]);
 
   return (
     <div className='flex items-center h-screen'>

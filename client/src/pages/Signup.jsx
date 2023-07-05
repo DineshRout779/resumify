@@ -2,16 +2,22 @@ import signupImg from '../assets/signup.svg';
 import google from '../assets/google.svg';
 import { useForm } from 'react-hook-form';
 import { Button, Label, TextInput } from 'flowbite-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signupService } from '../services/lib/auth';
 import toast from 'react-hot-toast';
+import { useEffect } from 'react';
+import { useAuth } from '../hooks/useAuth';
 
 const Signup = () => {
+  const {
+    state: { user },
+  } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     try {
@@ -26,6 +32,12 @@ const Signup = () => {
       console.log(error.response);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard');
+    }
+  }, [navigate, user]);
 
   return (
     <div className='flex items-center h-screen'>
