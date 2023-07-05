@@ -61,7 +61,7 @@ const Features = () => {
         <div className='grid gap-6 grid-cols-2 md:grid-cols-3 my-12'>
           {data.map((card) => (
             <div
-              className='bg-blue-50 border border-slate-100 rounded-md flex justify-center items-center flex-col p-5 py-10'
+              className='bg-blue-50 border border-slate-200 rounded-md flex justify-center items-center flex-col p-5 py-10'
               key={card.id}
             >
               <div className='p-2 bg-purple-700 rounded-md'>{card.icon}</div>

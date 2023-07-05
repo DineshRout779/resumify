@@ -1,10 +1,15 @@
 import heroImg from '../assets/hero.svg';
 import { Button } from 'flowbite-react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 const Hero = () => {
+  const {
+    state: { user },
+  } = useAuth();
+
   return (
-    <div className='container max-w-[1200px] mx-auto block md:flex flex-row-reverse items-center justify-between gap-10 p-4 min-h-[80vh]'>
+    <div className='container max-w-[1200px] mx-auto block md:flex flex-row-reverse items-center justify-between gap-10 p-4 px-8 min-h-[80vh]'>
       <div className='basis-2/4'>
         <img
           src={heroImg}
@@ -26,14 +31,24 @@ const Hero = () => {
         </p>
 
         <div className='flex justify-center md:justify-normal items-center gap-4'>
-          <Link to='/signup'>
-            <Button className='text-2xl font-bold' color={'primary'}>
-              Get started
-            </Button>
-          </Link>
-          <Button className='text-2xl font-bold' color={'outline'}>
-            Learn more
-          </Button>
+          {!user ? (
+            <>
+              <Link to='/signup'>
+                <Button className='text-2xl font-bold' color={'primary'}>
+                  Get started
+                </Button>
+              </Link>
+              <Button className='text-2xl font-bold' color={'outline'}>
+                Learn more
+              </Button>
+            </>
+          ) : (
+            <Link to='/dashboard'>
+              <Button className='text-2xl font-bold' color={'primary'}>
+                Go to dashboard
+              </Button>
+            </Link>
+          )}
         </div>
       </div>
     </div>
