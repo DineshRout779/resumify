@@ -2,6 +2,7 @@ import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { logout } from '../reducers/authReducers';
+import AvatarDefault from './AvatarDefault';
 import Logo from './Logo';
 
 const Header = () => {
@@ -17,7 +18,7 @@ const Header = () => {
   };
 
   return (
-    <div className='backdrop-blur-sm bg-white/50 sticky top-0'>
+    <div className='backdrop-blur-sm bg-white/50 sticky top-0 z-50'>
       <Navbar
         fluid
         className='container w-[95%] bg-transparent max-w-[1200px] mx-auto p-0 py-8'
@@ -26,11 +27,7 @@ const Header = () => {
 
         <div className='flex gap-2 md:order-2'>
           {loading ? (
-            <img
-              src='https://miro.medium.com/v2/resize:fit:1400/1*CsJ05WEGfunYMLGfsT2sXA.gif'
-              alt=''
-              className='w-8 h-8'
-            />
+            <AvatarDefault />
           ) : user ? (
             <Dropdown
               inline

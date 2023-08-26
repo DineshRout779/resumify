@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import Header from '../components/Header';
+import TemplateList from '../components/TemplateList';
 import { useAuth } from '../hooks/useAuth';
 import { setUser, startLoading, stopLoading } from '../reducers/authReducers';
 import { isAuthenticated } from '../services/lib/auth';
@@ -41,6 +42,7 @@ const Dashboard = () => {
       <Header />
       <div className='container w-[95%] max-w-[1200px] mx-auto p-4'>
         <h1 className='text-2xl font-semibold mb-4'>My resumes</h1>
+        <TemplateList />
       </div>
     </>
   );

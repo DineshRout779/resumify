@@ -7,11 +7,6 @@ import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Stories from '../components/Stories';
 
-// const fetchUsers = async () => {
-//   const res = await axios.get('./data.json');
-//   return res.data;
-// };
-
 const Home = () => {
   // const { data, status } = useQuery('users', fetchUsers);
 

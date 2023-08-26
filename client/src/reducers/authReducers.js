@@ -7,7 +7,7 @@ export const authReducer = (state, action) => {
         error: '',
       };
     case 'LOGIN_SUCCESS':
-      console.log('token in react: ', action.payload);
+      // console.log('token in react: ', action.payload);
       localStorage.setItem('token', action.payload);
       return {
         ...state,
